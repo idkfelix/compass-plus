@@ -1,23 +1,34 @@
 import React from 'react';
-import axios from 'axios';
-import {getCookie, Session} from 'unofficial-compass-api';
-import { getCookies, setCookie, deleteCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 
-const Login = () => {
+export default function Login () {
 
-    const handleFormSubmit = async (e: any) => {
-        e.preventDefault();
-        const username = e.target.username.value;
-        const password = e.target.password.value;
-      
-        getCookie('mullauna-vic', username, password)
-          .then((cookie: string) => {
-            setCookie('SessionId', cookie);
-          })
-          .catch((error: any) => {
-            console.log(error)
-          });
-    };    
+  const router = useRouter();
+
+  const handleFormSubmit = async (e: any) => {
+    e.preventDefault();
+    let url = 'http://localhost:3000/api/auth';
+
+    let options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: `{"username":"${e.target.username.value}","password":"${e.target.password.value}"}`
+    };
+
+    fetch(url, options)
+      .then(res => res.json())
+      .then(json => {
+        if(json['sessionId']) {
+          setCookie('sessionId',json['sessionId'])
+          setCookie('userId',json['userId'])
+          router.push('/dashboard')
+        } else {
+          console.log('invalid login')
+        }
+      })
+      .catch(err => console.error('error:' + err));
+  };     
 
   return (
     <div className="h-screen flex bg-base">
@@ -39,9 +50,7 @@ const Login = () => {
                 placeholder="Password"
             />
           <div className="flex justify-center items-center mt-4 mb-4">
-            <button
-              className="w-[150px] bg-base py-2 px-4 text-sm text-green rounded-lg border-2 border-green"
-            >
+            <button className="w-[150px] bg-base py-2 px-4 text-sm text-green rounded-lg border-2 border-green">
               Login
             </button>
           </div>
@@ -50,5 +59,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;

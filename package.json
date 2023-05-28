@@ -21,9 +21,9 @@
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "supports-color": "^8.1.1",
     "tailwindcss": "3.3.2",
-    "typescript": "5.0.4",
-    "unofficial-compass-api": "^0.0.1"
+    "typescript": "5.0.4"
   },
   "devDependencies": {
     "@catppuccin/tailwindcss": "^0.1.1"

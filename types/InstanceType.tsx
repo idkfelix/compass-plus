@@ -23,7 +23,7 @@ priority: number;
 runningStatus: number;
 start: string;
 studentLessonFileAssetId: string | null;
-studentLessonPlan: string | null;
+studentLessonPlan: string;
 studentLessonPlanWikiId: string | null;
 teacherLessonPlan: string | null;
 }

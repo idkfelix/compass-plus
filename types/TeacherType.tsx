@@ -1,0 +1,31 @@
+export interface Teacher {
+chroniclePinnedCount: number;
+userACTStudentID: null;
+userAccessRestrictions: null;
+userCompassPersonId: string;
+userDetails: null;
+userDisplayCode: string;
+userEmail: string;
+userFirstName: string;
+userFlags: string[];
+userFormGroup: null;
+userFullName: string;
+userGenderPronouns: string;
+userHouse: null;
+userId: number;
+userLastName: string;
+userPhoneExtension: null;
+userPhotoPath: string;
+userPreferredLastName: string;
+userPreferredName: string;
+userRole: number;
+userSchoolId: string;
+userSchoolURL: string;
+userSquarePhotoPath: string;
+userStatus: number;
+userSussiID: string;
+userTimeLinePeriods: string[];
+userVSN: null;
+userYearLevel: string | null;
+userYearLevelId: string | null;
+}

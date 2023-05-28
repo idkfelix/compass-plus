@@ -2,6 +2,8 @@ import { GetServerSideProps } from 'next';
 import { parse } from 'cookie';
 import { Period } from '../types/PeriodType';
 import Timetable from '@/components/Timetable';
+import Navbar from '@/components/Navbar';
+
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = parse(context.req.headers.cookie || '');
@@ -37,7 +39,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default function Dashboard({ timetableData }: {timetableData: Period[]}) {
+
   return (
-    <Timetable data={timetableData}/>
+    <div>
+      <Navbar/>
+      <div className='flex flex-col items-center justify-center'>
+        <Timetable data={timetableData}/>
+      </div>
+    </div>
   )
 };

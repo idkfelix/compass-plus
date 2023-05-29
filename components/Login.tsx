@@ -8,7 +8,7 @@ export default function Login () {
 
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
-    let url = 'http://localhost:3000/api/auth';
+    let url = `http://${process.env.NEXT_PUBLIC_HOST_ADDR}/api/auth`;
 
     let options = {
       method: 'POST',
@@ -32,7 +32,7 @@ export default function Login () {
 
   return (
     <div className="h-screen flex bg-base">
-      <div className="w-[350px] max-w-sm m-auto bg-crust rounded-2xl border-2 border-pink shadow-default py-5 px-10">
+      <div className="w-[350px] max-w-sm m-auto bg-crust rounded-2xl border-2 border-surface1 shadow-default py-5 px-10">
         <h1 className="text-3xl text-pink font-extrabold text-primary mt-4 mb-10 text-center">
           Compass +
         </h1>
@@ -50,7 +50,7 @@ export default function Login () {
                 placeholder="Password"
             />
           <div className="flex justify-center items-center mt-4 mb-4">
-            <button className="w-[150px] bg-base py-2 px-4 text-sm text-green rounded-lg border-2 border-green">
+            <button className="w-[150px] bg-base py-2 px-4 text-sm text-pink rounded-lg border-2 border-pink">
               Login
             </button>
           </div>

@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         sessionId: cookies.sessionId,
         userId: cookies.userId,
       };
-    const presponse = await fetch(`http://localhost:3000/api/timetable/${instanceId}`, {
+    const presponse = await fetch(`http://${process.env.NEXT_PUBLIC_HOST_ADDR}/api/timetable/${instanceId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,10 +34,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const periodData = await presponse.json();
 
     const id = periodData.managerId
-    if(periodData.coveringManagerId != ''){const guid = periodData.coveringManagerId}
+    if(periodData.coveringManagerId != ''){const id = periodData.coveringManagerId}
     
 
-    const tresponse = await fetch(`http://localhost:3000/api/teacher${id}`, {
+    const tresponse = await fetch(`http://${process.env.NEXT_PUBLIC_HOST_ADDR}/api/teacher/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,7 +46,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
 
     const teacherData = await tresponse.json();
-    console.log(teacherData)
 
     return {
       props: {
@@ -66,11 +65,28 @@ export default function Dashboard({ periodData, teacherData }: {periodData: Inst
     <div className='p-5'>
       <Navbar/>
       <div className='flex flex-col items-center justify-center'>
-        <div className='text-white bg-crust w-[1000px] p-5 mb-5 rounded-md border-2 border-pink flex flex-row gap-4'>
-          {/* <img src={`https://mullauna-vic.compass.education/download/cdn/full/${pfp()}`} className='w-20 rounded-md' /> */}
-          <h1>{teacherData.userFullName}</h1>
+        <div className='text-white bg-crust w-[1000px] p-5 mb-5 rounded-md border-2 border-surface1 flex flex-row gap-4'>
+          <div className='flex flex-col w-full'>
+              <h1 className='text-lg font-bold'>{periodData.activityName}</h1>
+              <h1 className='text-lg font-semibold'>{periodData.locationName}</h1>
+              <h1 className='text-md font-semibold'>{periodData.start}</h1>
+          </div>
+          <div className='flex flex-col text-right'>
+            <h1 className='text-lg font-semibold'>{teacherData.userFullName}</h1>
+            <h1 className='text-sm'>{teacherData.userEmail}</h1>
+          </div>
+          <img 
+            src={`https://${process.env.NEXT_PUBLIC_PREFIX}.compass.education${teacherData.userPhotoPath}`} 
+            className='w-20 rounded-md' 
+          />
         </div>
-        <div className='text-white bg-crust w-[1000px] p-10  rounded-md border-2 border-pink' dangerouslySetInnerHTML={sanitizedData()}/>
+        <div 
+          className='text-white bg-crust w-[1000px] p-10  rounded-md border-2 border-surface1' 
+        >
+          <h1 className='font-bold text-4xl text-center'>Lesson Plan</h1>
+          <br/>
+          <div dangerouslySetInnerHTML={sanitizedData()}/>
+        </div>
       </div>
     </div>
   )

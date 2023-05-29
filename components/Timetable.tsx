@@ -36,12 +36,12 @@ export default function Timetable({ data }: { data: Period[] }) {
 
 
   return (
-    <div className='p-10' >
+    <div className='pt-10' >
       {performExtractValues(data).map((period) => (
-        <Link href={`/${period.instanceId}`}>
+        <Link key={period.instanceId} href={`/${period.instanceId}`}>
           <div 
             key={period.instanceId}
-            className='w-[500px] h-[75px] bg-crust rounded-md border-2 border-pink m-5 p-3 text-pink'
+            className='w-[500px] h-[75px] bg-crust rounded-md border-2 border-surface1 m-5 p-3 text-pink'
           >
             <h1>{period.data[2]}</h1>
           </div>

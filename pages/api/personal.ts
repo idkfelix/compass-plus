@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const data = req.body
         const s = new Session(`${process.env.NEXT_PUBLIC_PREFIX}`,data['sessionId'],data['userId'])
-        const t = await s.getTimetable('11/05/2023')
+        const t = await s.getPersonalDetails()
         res.status(200).json(t['data']);
     } catch (error) {
       res.status(500).json({ error: 'Request Error' });

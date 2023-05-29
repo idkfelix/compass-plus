@@ -2,7 +2,9 @@ import { GetServerSideProps } from 'next';
 import { parse } from 'cookie';
 import { Period } from '../types/PeriodType';
 import Timetable from '@/components/Timetable';
+import Account from '@/components/Account';
 import Navbar from '@/components/Navbar';
+import { Personal } from '@/types/PersonalType';
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -22,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId: cookies.userId,
   };
 
-  const response = await fetch('http://localhost:3000/api/timetable', {
+  const tresponse = await fetch(`http://${process.env.NEXT_PUBLIC_HOST_ADDR}/api/timetable`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -30,21 +32,33 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     body: JSON.stringify(requestData),
   });
 
-  const timetableData = await response.json();
+  const timetableData = await tresponse.json();
+
+  const presponse = await fetch(`http://${process.env.NEXT_PUBLIC_HOST_ADDR}/api/personal`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestData),
+  });
+
+  const personalData = await presponse.json();
   return {
     props: {
       timetableData,
+      personalData
     },
   };
 };
 
-export default function Dashboard({ timetableData }: {timetableData: Period[]}) {
+export default function Dashboard({ timetableData, personalData }: {timetableData: Period[], personalData: Personal}) {
 
   return (
     <div>
       <Navbar/>
-      <div className='flex flex-col items-center justify-center'>
+      <div className='flex items-center justify-center'>
         <Timetable data={timetableData}/>
+        <Account data={personalData}/>
       </div>
     </div>
   )

@@ -8,7 +8,7 @@ export default function Login () {
 
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
-    let url = `http://${process.env.NEXT_PUBLIC_HOST_ADDR}/api/auth`;
+    let url = `http://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth`;
 
     let options = {
       method: 'POST',

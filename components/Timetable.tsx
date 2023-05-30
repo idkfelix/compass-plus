@@ -30,7 +30,9 @@ export default function Timetable({ data }: { data: Period[] }) {
     }
     resultArray.push(d);
     });
-    return resultArray;
+    const filteredObjects = resultArray.filter(obj => obj.data.length === 5);
+    const sortedObjects = filteredObjects.sort((a:any, b:any) => a.data[1] - b.data[1]);
+    return sortedObjects;
   }
 
 

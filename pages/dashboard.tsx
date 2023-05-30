@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     userId: cookies.userId,
   };
 
-  const tresponse = await fetch(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/timetable`, {
+  const tresponse = await fetch(`http://${process.env.NEXT_PUBLIC_URL}/api/timetable`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const timetableData = await tresponse.json();
 
-  const presponse = await fetch(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/personal`, {
+  const presponse = await fetch(`http://${process.env.NEXT_PUBLIC_URL}/api/personal`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export default function Dashboard({ timetableData, personalData }: {timetableDat
   return (
     <div>
       <Navbar/>
-      <div className='flex items-center justify-center'>
+      <div className='flex items-center justify-center lg:flex-row md:flex-col'>
         <Timetable data={timetableData}/>
         <Account data={personalData}/>
       </div>

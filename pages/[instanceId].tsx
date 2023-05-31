@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         sessionId: cookies.sessionId,
         userId: cookies.userId,
       };
-    const presponse = await fetch(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/timetable/${instanceId}`, {
+    const presponse = await fetch(`http://${process.env.NEXT_PUBLIC_URL}/api/timetable/${instanceId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if(periodData.coveringManagerId != ''){const id = periodData.coveringManagerId}
     
 
-    const tresponse = await fetch(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/teacher/${id}`, {
+    const tresponse = await fetch(`http://${process.env.NEXT_PUBLIC_URL}/api/teacher/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
